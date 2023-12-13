@@ -1,0 +1,48 @@
+{% extends "MelodyMatrix/base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- Purpose: Display Borrowed Vinyl -->
+    {{ loans }}
+    <div class="container mt-4">
+        <!-- Heading for Borrowed Vinyl section -->
+        <h1 class="text-center text-uppercase mb-4" style="font-family:'Sitka Text'; font-weight: bold; font-size: 50px;">My Borrowed Vinyl</h1>
+        <div style="margin-bottom: 50px;"></div>
+        {% if albuminstance_list %}
+            <!-- Displaying Borrowed Vinyls in a row with cards -->
+            <div class="row justify-content-center">
+                {% for albuminst in albuminstance_list %}
+                    <!-- Card for each Borrowed Vinyl -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 {% if albuminst.is_overdue %}bg-light{% endif %}">
+                            <!-- Display Album Cover if available -->
+                            {% if albuminst.album.album_image %}
+                                <img src="{{ albuminst.album.album_image.url }}" alt="{{ albuminst.album.title }} Cover" class="card-img-top" style="max-height: 200px; object-fit: cover;">
+                            {% endif %}
+                            <div class="card-body">
+                                <!-- Link to Album details page with title -->
+                                <h5 class="card-title text-center">
+                                    <a href="{% url 'album_detail' albuminst.album.pk %}" style="color: black; text-decoration: none; font-family:'Sitka Text'; font-weight: bold;" class="text-center text-uppercase">{{ albuminst.album.title }}</a>
+                                </h5>
+                                <!-- Displaying status badge based on Borrowed Vinyl status -->
+                                <p class="card-text text-center">
+                                    {% if albuminst.status == 'o' %}
+                                        <span class="badge bg-success">On Loan</span>
+                                    {% elif albuminst.status == 'r' %}
+                                        <span class="badge bg-warning">Reserved</span>
+                                    {% endif %}
+                                </p>
+                                <!-- Displaying Due Date for Borrowed Vinyl -->
+                                <p class="card-text text-center"><small class="text-muted" style="font-family:'Sitka Text'; font-weight: bold;">Due Date: {{ albuminst.due_back }}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Message for no borrowed vinyls -->
+            <p class="mt-4 text-center">There are no vinyls borrowed.</p>
+        {% endif %}
+    </div>
+    <div style="margin-bottom: 150px;"></div>
+{% endblock %}

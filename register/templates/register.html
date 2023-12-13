@@ -1,0 +1,57 @@
+<!-- register/templates/register.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+{% extends "MelodyMatrix/base.html" %}
+
+{% block title %}Create an Account{% endblock %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <div class="content-section">
+        <div class="media">
+            <div class="container mt-2 mb-2">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-md-6">
+                        <div class="card rounded bg-white">
+                            <div class="card-body p-5 justify-content-center">
+                                <!--Logo -->
+                                <section>
+                                    <img src="/media/h1_banner/MM_Logo.jpg" alt="Banner Image" style="width: 100%; height: auto;">
+                                </section>
+                                <div style="margin-bottom: 20px;"></div>
+                                <form method="POST" class="form-group">
+                                    {% csrf_token %}
+                                    <div style="margin-bottom: 20px;"></div>
+                                    <p style="font-size: 17px; color: grey;">Already have an account?<a style="color: black; font-weight: bold;text-decoration: none;"href="{% url 'login' %}"> Login</a></p>
+
+                                    {{ form|crispy }}
+
+                                    <!-- Additional fields for UserProfile -->
+                                    {{ form.profile_field1|crispy }}
+
+                                    {{ form.profile_field2|crispy }}
+
+                                    <div style="margin-bottom: 50px;"></div>
+                                    <div class="text-center">
+                                        <button class="btn btn-dark col-md-4 text-uppercase text-center" onclick="goBack()">Back</button>
+                                        <button class="btn btn-success col-md-4 text-uppercase" type="submit" >Register</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+<div style="margin-bottom: 250px;"></div>
+{% endblock %}
+</html>

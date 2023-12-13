@@ -1,0 +1,48 @@
+{% extends "MelodyMatrix/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <!-- Page Purpose: Manage Album -->
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {% if perms.MelodyMatrix.change_album or perms.MelodyMatrix.edit_album %}
+                    <!-- Card for Managing Album -->
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Heading for Manage Album -->
+                            <h2 style="font-family: 'Palatino', serif; font-weight: bold" class="text-center text-uppercase">Manage Album</h2>
+
+                            <!-- Album Management Form -->
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+
+                                <div style="margin-bottom: 30px;"></div>
+
+                                <!-- Button Group for Back and Save -->
+                                <div class="text-center">
+                                    <button class="btn btn-dark" onclick="goBack()">Back</button>
+                                    <input type="submit" class="btn btn-dark" value="Save">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% else %}
+                    <!-- Alert for No Permission to Edit Album -->
+                    <div class="alert alert-danger">
+                        You do not have permission to edit this album.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript function to go back -->
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+{% endblock %}

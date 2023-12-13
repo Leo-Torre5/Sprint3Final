@@ -1,0 +1,38 @@
+{% extends "MelodyMatrix/base.html" %}
+{% block content %}
+    <!-- Purpose: Song Inventory -->
+    <h1 class="text-center text-uppercase" style="font-family:'Sitka Text'; font-size: 60px; font-weight: bold ">Song Inventory</h1>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <table class="table table-bordered table-light table-striped table-hover" style="max-width: 900px;">
+                    <thead>
+                        <tr class="table-secondary table-dark">
+                            <th>Title</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for song in song_list %}
+                            <tr>
+                                <td>{{ song.title }}</td>
+                                <td>
+                                    <!-- Button to edit the song -->
+                                    <a href="{% url 'song_update' pk=song.pk %}" class="btn btn-warning">Edit</a>
+                                    <!-- Button to delete the song -->
+                                    <a href="{% url 'song_delete' pk=song.pk %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <!-- Add New Song button in the last row -->
+                        <tr>
+                            <td colspan="2" class="text-center">
+                                <a href="{% url 'song_create' %}" class="btn btn-success">Add New Song</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

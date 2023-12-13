@@ -1,0 +1,64 @@
+<!-- templates/registration/login.html file contains the login form -->
+
+{% extends "MelodyMatrix/base.html" %}
+
+<!-- Added alert message -->
+{% block content %}
+    {% if form.errors %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <p  style="font-family: 'Palatino', serif; font-size: 18px;">Your username and password didn't match. Please try again.</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p style="font-family: 'Palatino', serif;">Your account doesn't have access to this page. To proceed, please log in with an account that has access.</p>
+        {% else %}
+            <p style="font-family: 'Palatino', serif;">Please log in to view this page.</p>
+        {% endif %}
+    {% endif %}
+
+    <!-- Login Form - Web Styling -->
+    <div style="margin-top: 100px;"></div>
+
+    <div class="container mt-5 flex-container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body p-5 justify-content-center">
+                        <!--Logo -->
+                        <section>
+                            <img src="/media/h1_banner/MM_Logo.jpg" alt="Banner Image" style="width: 100%; height: auto;">
+                        </section>
+
+                        <div style="margin-bottom: 20px;"></div>
+
+                        <form method="post" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            <div class="form-login-group col-md-12" style="font-family: 'Palatino', serif; font-size: 20px; margin-bottom: 1rem;">
+                                <label for="exampleInputUsername">Username</label>
+                                <input class="form-control" id="username" placeholder="" type="username" name="username">
+                            </div>
+                            <div class="form-login-group col-md-12" style="font-family: 'Palatino', serif; font-size: 20px; margin-bottom: 1.5rem">
+                                <label for="exampleInputPassword">Password</label>
+                                <input class="form-control" placeholder="" type="password" name="password" id="password">
+                            </div>
+
+                            <input class="btn btn-dark col-md-12 text-uppercase" style="border-radius: 6px; font-size: 18px; color: white;" type="submit" value="Login">
+                            <input type="hidden" name="next" value="{{ next }}">
+                        </form>
+
+                        <div style="margin-bottom: 30px;"></div>
+
+                        <!-- Link to the password reset page -->
+                        <p><a style="font-size: 17px; text-decoration: none; color: black;" href="{% url 'password_reset' %}">Forgot Password?</a></p>
+
+                        <!-- Display register info. -->
+                        <p style="font-size: 17px; color: grey;">Not a member?<a style="color: black; font-weight: bold;text-decoration: none;"href="{% url 'register' %}"> Register</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-bottom: 250px;"></div>
+{% endblock %}

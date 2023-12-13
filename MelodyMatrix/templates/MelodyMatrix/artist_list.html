@@ -1,0 +1,61 @@
+{% extends "MelodyMatrix/base.html" %}
+{% block content %}
+    <!-- Load static files, such as images -->
+    {% load static %}
+
+    <!-- Banner Section -->
+    <section style="position: relative;">
+        <!-- Display banner image with absolute positioning -->
+        <img src="/media/about_banner/artist_banner.jpg" alt="Banner Image" style="width: 100%; height: auto;">
+        <div style="position: absolute; top: 50%; left: 35%; transform: translate(-50%, -50%); color: whitesmoke;">
+            <!-- Heading for Explore All Artists -->
+            <p style="font-family: Magneto; font-weight: bold; text-align: left; font-size: 200px; font-weight: bold; margin-bottom: -70px;"> Explore </p>
+            <p style="font-family: 'Palatino', serif; font-weight: bold; text-align: left; font-size: 80px; font-weight: bold; margin-bottom: -35px;" class="text-uppercase"> All Artists</p>
+        </div>
+    </section>
+
+    <!-- Margin for separation -->
+    <div style="margin-bottom: 10px;"></div>
+
+    <!-- Container for Sorting Form -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <!-- Form for sorting artists -->
+                <form method="get" action="{% url 'artist_list' %}" class="d-flex">
+                    <div class="form-group me-2 ">
+                        <!-- Dropdown for Sorting -->
+                        <select class="form-control bg-dark text-white text-uppercase" id="sort" name="sort" onchange="this.form.submit()">
+                            <option value="" selected disabled>Sort by</option>
+                            <option value="name"> Name (A-Z)</option>
+                            <option value="-name"> Name (Z-A)</option>
+                            <option value="oldest">Oldest </option>
+                            <option value="-oldest">Newest </option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container for Artist Cards -->
+    <div class="container mt-4">
+        <div class="row row-cols-1 row-cols-md-4">
+            {% for artist in artists %}
+                <div class="col mb-4">
+                    <div class="card">
+                        <!-- Wrap the image in an anchor tag with the artist detail URL -->
+                        <a href="{% url 'artist_detail' pk=artist.pk %}">
+                            <!-- Display Artist Image -->
+                            <img src="{% if artist.artist_image %}{{ artist.artist_image.url }}{% endif %}" class="card-img-top" alt="{{ artist.artist_name }}">
+                        </a>
+                        <div class="card-body text-center">
+                            <!-- Display the artist name with specified font styles -->
+                            <p style="font-family: 'Palatino', serif; font-weight: bold; font-size: 20px;">{{ artist.artist_name }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "MelodyMatrix/base.html" %}
+{% if messages %}
+    <!-- Display alert messages -->
+    <div class="alert alert-dismissible" style="margin-top: -28px;">
+        <!-- Close button for alert dismissal -->
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <!-- List to show individual messages -->
+        <ul class="messages">
+            {% for message in messages %}
+                <!-- Display each message with appropriate styling -->
+                <li class="alert {{ message.tags }}">
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+{% block content %}
+    {% if perms.MelodyMatrix.edit_albuminstance %}
+        <!-- Purpose: Manage Album Inventory with Loan and Return actions -->
+        <h1 class="text-center text-uppercase" style="font-family:'Sitka Text'; font-size: 60px; font-weight: bold ">Manage Inventory</h1>
+        <div style="margin-bottom: 30px;"></div>
+        <div style="margin-bottom: 60px;"></div>
+        {% if albuminstance_list %}
+            <!-- Table to showcase Album Instances with relevant details -->
+            <table class="table table-bordered table-light table-striped table-hover">
+                <thead>
+                    <!-- Table header with column names -->
+                    <tr class="table-secondary table-dark">
+                        <th class="col-md-3">Album Title</th>
+                        <th class="col-md-2">Status</th>
+                        <th class="col-md-2">Borrower</th>
+                        <th class="col-md-2">Due Date</th>
+                        <th class="col-md-3">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for copy in albuminstance_list %}
+                        <!-- Table row for each Album Instance -->
+                        <tr>
+                            <!-- Link to Album details page -->
+                            <td class="col-md-3"><a href="{% url 'album_detail' copy.album.pk %}" style="color: black; text-decoration: underline;">{{ copy.album.title }}</a></td>
+                            <!-- Display Album Instance status -->
+                            <td class="col-md-2">{{ copy.get_status_display }}</td>
+                            <!-- Display Borrower username -->
+                            <td class="col-md-2">{{ copy.borrower.username }}</td>
+                            <!-- Display Due Date or 'N/A' if not applicable -->
+                            <td class="col-md-2">{{ copy.due_back|default:"N/A" }}</td>
+                            <!-- Action buttons for Loan and Return based on Album Instance status -->
+                            <td class="col-md-3 text-center">
+                                <div class="d-flex justify-content-center">
+                                    {% if copy.status == 'a' %}
+                                        <a href="{% url 'loan_album_librarian' copy.id %}" class="btn btn-success">Loan</a>
+                                    {% elif copy.status == 'o' or copy.status == 'r' %}
+                                        <a href="{% url 'return_album' copy.id %}" class="btn btn-dark">Return</a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <!-- Message for no available albums -->
+            <p>There are no albums available.</p>
+        {% endif %}
+    {% else %}
+        <!-- Message for lack of authorization -->
+        <p>You do not have authorization to view this feature</p>
+    {% endif %}
+{% endblock %}

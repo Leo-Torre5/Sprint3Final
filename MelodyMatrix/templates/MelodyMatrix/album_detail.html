@@ -1,0 +1,107 @@
+{% extends "MelodyMatrix/base.html" %}
+
+{% block content %}
+    <!-- Page Purpose: Display Album Details -->
+
+    <div class="container mt-5 mx-auto">
+        <div class="row">
+            <!-- Album Image Section -->
+            <div class="col-md-6">
+                {% if album.album_image %}
+                    <img src="{{ album.album_image.url }}" alt="{{ album.title }}" style="width: 100%; max-height: 600px; max-width: 600px;">
+                {% endif %}
+            </div>
+
+            <!-- Album Details Section -->
+            <div class="col-md-6">
+                <!-- Album Title -->
+                <h1 style="font-family: Magneto; font-size: 40px; font-weight: bold" class="text-center mb-4">{{ album.title }}</h1>
+
+                <!-- Artist Information -->
+                <p style="font-family: 'Palatino', serif; font-weight: bold; font-size: 16px; color: black; text-align: center;">
+                    [By: <a href="{% url 'artist_detail' album.artist.id %}" style="color: black; text-decoration: underline;">{{ album.artist }}</a>]
+                </p>
+
+                <div style="margin-bottom: 30px;"></div>
+
+                <!-- Album Summary -->
+                <div>
+                    <p style="font-family: 'Palatino', serif; font-size: 17px; "><strong>About Album:</strong> {{ album.summary }}</p>
+                    {% if available_copies %}
+                        <p><strong>Copies Available:</strong> {{ available_copies.count }}</p>
+                    {% else %}
+                        <p class="text-danger"><strong>No Copies Available</strong></p>
+                    {% endif %}
+                </div>
+
+                <div style="margin-bottom: 30px;"></div>
+
+                <!-- Track List Section -->
+                <div class="card mt-4 mx-auto" style="max-width: 600px;">
+                    <div class="card-body">
+                        <h4 style="font-family: 'Palatino', serif; font-size: 20px; font-weight: bold" class="card-title text-uppercase text-center ">Track List</h4>
+                        <table class="table">
+                            <tbody>
+                                {% for song in album.songs.all %}
+                                    {% if forloop.counter0|divisibleby:2 %}<tr>{% endif %}
+                                    <td style="color: black; width: 200px;">
+                                        <strong>{{ forloop.counter|stringformat:"02d" }}</strong>. {{ song.title }}
+                                    </td>
+                                    {% if forloop.counter|divisibleby:2 or forloop.last %}</tr>{% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Cart Button Section -->
+                {% if user.is_authenticated %}
+                    {% if available_copies %}
+                        <form method="post" action="{% url 'add_to_cart' album.id %}">
+                            {% csrf_token %}
+                            <div class="text-center mt-3 d-grid gap-2">
+                                <button class="btn btn-dark mx-auto" style="background-color: black; width: 90%;">Add to Cart</button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <div class="text-center mt-3 d-grid gap-2">
+                            <button class="btn btn-dark mx-auto" style="background-color: black; width: 90%;" disabled>Out of Stock</button>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="text-center mt-3 d-grid gap-2">
+                        <button class="btn btn-dark mx-auto" style="background-color: black; width: 90%;" disabled>Must Be a Member to Use Cart</button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Other Albums by the Same Artist Section -->
+        <div style="margin-bottom: 60px;"></div>
+        <div class="mt-4">
+            <h2 style="font-family: 'Palatino', serif; font-size: 30px; font-weight: bold" class="text-center">Other Albums by {{ album.artist }}</h2>
+            <div class="text-center" style="display: flex; justify-content: center;">
+                <p style="border-bottom: 4px solid black; width: 8%; border-radius: 100px;"></p>
+            </div>
+
+            <!-- Display other albums by the same artist in a card -->
+            <div class="card mt-4 mx-auto" style="max-width: 900px;">
+                <div class="card-body">
+                    <div class="row justify-content-center">
+                        {% for artist_album in album.artist.album_set.all %}
+                            {% if artist_album.id != album.id %}
+                                <div class="col-md-4 mb-3 mx-auto text-center">
+                                    <a href="{% url 'album_detail' artist_album.id %}" style="text-decoration: none; color: black;">
+                                        <img src="{{ artist_album.album_image.url }}" alt="{{ artist_album.title }}" class="img-fluid">
+                                        <p style="font-family: 'Palatino', serif; font-size: 19px; font-weight: bold" class="mt-2" style="color: black; text-decoration: underline; font-size: 20px;">{{ artist_album.title }}</p>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-bottom: 300px;"></div>
+    </div>
+{% endblock %}

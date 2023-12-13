@@ -1,0 +1,68 @@
+{% extends "MelodyMatrix/base.html" %}
+{% load crispy_forms_tags static %}
+
+{% block content %}
+    <!-- Page Purpose: Update Profile Information -->
+
+    <div class="content-section">
+        <div class="media">
+            <div class="container mt-2 mb-2">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-md-6">
+                        <div class="card rounded bg-white">
+                            <div class="card-body">
+                                <!-- Banner Section -->
+                                <section>
+                                    <img src="/media/h1_banner/MM_Logo.jpg" alt="Banner Image" style="width: 100%; height: auto;">
+                                </section>
+                                <!-- Margin for visual separation -->
+                                <div style="margin-bottom: 50px;"></div>
+
+                                <!-- Profile Update Form -->
+                                <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <fieldset class="form-group">
+                                        <!-- Heading for Profile Update -->
+                                        <h3 style="font-family: 'Palatino', serif; font-weight: bold" class="text-center text-uppercase">Update Profile Information</h3>
+                                        <div style="margin-bottom: 30px;"></div>
+
+                                        <!-- User Form Section -->
+                                        <div class="row mt-2">
+                                            {{ u_form|crispy }}
+                                        </div>
+
+                                        <!-- Personal Information Section -->
+                                        <div class="row mt-3">
+                                            {{ p_form.address|as_crispy_field }}
+                                            {{ p_form.city|as_crispy_field }}
+                                            {{ p_form.state|as_crispy_field }}
+                                            {{ p_form.zip_code|as_crispy_field }}
+                                            {{ p_form.image|as_crispy_field }}
+                                        </div>
+                                    </fieldset>
+
+                                    <!-- Margin for visual separation -->
+                                    <div style="margin-bottom: 30px;"></div>
+
+                                    <!-- Form Group for Buttons -->
+                                    <div class="form-group text-center">
+                                        <!-- Back and Update Info Buttons -->
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <a href="{% url 'view_profile' %}" class="w-100 btn btn-dark btn-lg" style="text-transform: uppercase; font-size: 18px;">Back</a>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button class="w-100 btn btn-dark btn-lg" type="submit" style="text-transform: uppercase; font-size: 18px;">Update Info</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

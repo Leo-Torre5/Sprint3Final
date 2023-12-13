@@ -1,0 +1,53 @@
+{% extends "MelodyMatrix/base.html" %}
+{% block content %}
+  <!-- Page Purpose: Display Artist Details and Albums -->
+
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 style="font-family: Magneto; font-size: 60px; font-weight: bold" class="text-center mb-4">{{ artist.artist_name }}</h1>
+      </div>
+    </div>
+    <div style="margin-bottom: 30px;"></div>
+
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        {% if artist.artist_image %}
+          <img style="width: 100%; max-height: 600px; max-width: 600px; border-radius: 8px;" src="{{ artist.artist_image.url }}" alt="{{ artist.artist_name }}">
+        {% endif %}
+      </div>
+    </div>
+    <div style="margin-bottom: 30px;"></div>
+
+    <div class="row mt-4">
+      <div class="col-md-6 offset-md-3">
+        <p style="font-family: 'Palatino', serif; font-size: 18px; color: black;">
+          <strong>About Artist:</strong> {{ artist.summary }}
+        </p>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 90px;"></div>
+
+    <h2 style="font-family: 'Palatino', serif; font-size: 35px; font-weight: bold" class="text-center mt-4">Albums by {{ artist.artist_name }}</h2>
+    <div class="text-center" style="display: flex; justify-content: center;">
+      <p style="border-bottom: 4px solid black; width: 8%; border-radius: 100px;"></p>
+    </div>
+
+    <div class="card mt-4 mx-auto" style="max-width: 900px;">
+      <div class="card-body">
+        <div class="row justify-content-center">
+          {% for artist_album in artist.album_set.all %}
+            <div class="col-md-4 mb-3 mx-auto text-center">
+              <a href="{% url 'album_detail' artist_album.id %}" style="text-decoration: none; color: black;">
+                <img src="{{ artist_album.album_image.url }}" alt="{{ artist_album.title }}" class="img-fluid">
+                <p style="font-family: 'Palatino', serif; font-size: 19px; font-weight: bold" class="mt-2" style="color: black; text-decoration: underline; font-size: 20px;">{{ artist_album.title }}</p>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-bottom: 100px;"></div>
+{% endblock %}

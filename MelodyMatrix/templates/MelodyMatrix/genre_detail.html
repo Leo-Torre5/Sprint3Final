@@ -1,0 +1,78 @@
+{% extends "MelodyMatrix/base.html" %}
+
+{% block content %}
+    <!-- Section for Banner Image -->
+    <section style="position: relative;">
+        <img src="/media/about_banner/genre_detail_banner.jpg" alt="Banner Image" style="width: 100%; height: auto;">
+
+        <!-- Text Overlay on the Banner Image -->
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: whitesmoke;">
+            <p style="font-family: Magneto; font-size: 100px;">{{ genre.name }}</p>
+        </div>
+    </section>
+
+    <!-- Vertical Spacing -->
+    <div style="margin-bottom: 70px;"></div>
+
+    <!-- Container for Artists Section -->
+    <div class="container text-center">
+
+        <!-- Heading for Artists Section -->
+        <h2 style="font-family: 'Palatino', serif; font-weight: bold; font-size: 40px" class="text-center text-uppercase">Artists</h2>
+
+        <!-- Vertical Spacing -->
+        <div style="margin-bottom: 30px;"></div>
+
+        <!-- Row for Artists Display -->
+        <div class="row justify-content-center row-cols-1 row-cols-md-4">
+            {% for artist in artists %}
+                <!-- Artist Card -->
+                <div class="col mb-4">
+                    <div class="card">
+                        <!-- Link to Artist Detail Page -->
+                        <a href="{% url 'artist_detail' pk=artist.pk %}">
+                            <!-- Artist Image -->
+                            <img src="{% if artist.artist_image %}{{ artist.artist_image.url }}{% endif %}" class="card-img-top" alt="{{ artist.artist_name }}">
+                        </a>
+                        <!-- Artist Name in Card Body -->
+                        <div class="card-body text-center">
+                            <p style="font-family: 'Palatino', serif; font-weight: bold; font-size: 20px;">{{ artist.artist_name }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Vertical Spacing -->
+        <div style="margin-bottom: 60px;"></div>
+
+        <!-- Heading for Albums Section -->
+        <h2 style="font-family: 'Palatino', serif; font-weight: bold; font-size: 40px" class="text-center text-uppercase">Albums</h2>
+
+        <!-- Vertical Spacing -->
+        <div style="margin-bottom: 30px;"></div>
+
+        <!-- Row for Albums Display -->
+        <div class="row justify-content-center row-cols-1 row-cols-md-4">
+            {% for album in albums %}
+                <!-- Album Card -->
+                <div class="col mb-4">
+                    <div class="card">
+                        <!-- Link to Album Detail Page -->
+                        <a href="{{ album.get_absolute_url }}">
+                            <!-- Album Image -->
+                            <img src="{{ album.album_image.url }}" class="card-img-top" alt="{{ album.title }}">
+                        </a>
+                        <!-- Album Title in Card Body -->
+                        <div class="card-body text-center">
+                            <p style="font-family: 'Palatino', serif; font-weight: bold; font-size: 20px;">{{ album.title }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Vertical Spacing -->
+    <div style="margin-bottom: 150px;"></div>
+{% endblock %}

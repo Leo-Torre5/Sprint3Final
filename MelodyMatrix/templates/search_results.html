@@ -1,0 +1,136 @@
+{% extends 'MelodyMatrix/base.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+    <!-- Section for displaying search results -->
+    <section style="position: relative;">
+        <!-- Banner Image for search results -->
+        <img src="/media/about_banner/search_banner.jpg" alt="Banner Image" style="width: 100%; height: auto;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: whitesmoke;">
+            <!-- Heading for search results -->
+            <p style="margin-bottom: 5px; font-family: 'Palatino', serif; font-weight: bold; font-size: 55px" class="text-center text-uppercase">Search Results for</p>
+            <p style="margin-bottom: 20px; font-family: 'Palatino', serif; font-weight: bold; font-size: 35px" class="text-center text-uppercase">"{{ query }}"</p>
+        </div>
+    </section>
+    <div style="margin-bottom: 70px;"></div>
+
+    <!-- Displaying Artists -->
+    {% if artists %}
+        <h3 style="margin-bottom: 20px; font-family: Magneto; font-size: 35px" class="text-center">Artists</h3>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+            {% for artist in artists %}
+                <div style="text-align: center; width: 250px; margin-bottom: 20px;">
+                    <!-- Artist Image -->
+                    <img src="{{ artist.artist_image.url }}" alt="{{ artist.artist_name }}" style="width: 100%; height: 250px; max-height: 250px; object-fit: cover; border-radius: 8px;">
+                    <p style="color: black; font-family: 'Palatino', serif; font-weight: bold;">{{ artist.artist_name }}</p>
+                    <!-- View Artist Button -->
+                    <a href="{% url 'artist_detail' artist.id %}" style="text-decoration: none;">
+                        <button style="background-color: black; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">View Artist</button>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div style="margin-bottom: 60px;"></div>
+
+    <!-- Displaying Albums -->
+    {% if albums %}
+        <h3 style="margin-bottom: 20px; font-family: Magneto; font-size: 35px" class="text-center">Albums</h3>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+            {% for album in albums %}
+                <div style="text-align: center; width: 250px; margin-bottom: 20px;">
+                    <!-- Album Image -->
+                    <img src="{{ album.album_image.url }}" alt="{{ album.title }}" style="width: 100%; height: 250px; max-height: 250px; object-fit: cover; border-radius: 8px;">
+                    <p style="color: black; font-family: 'Palatino', serif; font-weight: bold;">{{ album.title }}</p>
+                    <!-- View Album Button -->
+                    <a href="{% url 'album_detail' album.id %}" style="text-decoration: none;">
+                        <button style="background-color: black; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">View Album</button>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div style="margin-bottom: 60px;"></div>
+
+    <!-- Displaying Genres -->
+    {% if genres %}
+        <h3 style="margin-bottom: 20px; font-family: Magneto; font-size: 35px" class="text-center">Genres</h3>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+            {% for genre in genres %}
+                <div style="text-align: center; width: 250px; margin-bottom: 20px;">
+                    <!-- Genre Image -->
+                    <img src="{{ genre.image.url }}" alt="{{ genre.name }}" style="width: 100%; height: 250px; max-height: 250px; object-fit: cover; border-radius: 8px;">
+                    <p style="color: black; font-family: 'Palatino', serif; font-weight: bold;">{{ genre.name }}</p>
+                    <!-- View Genre Button -->
+                    <a href="{% url 'genre_detail' genre.id %}" style="text-decoration: none;">
+                        <button style="background-color: black; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">View Genre</button>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div style="margin-bottom: 60px;"></div>
+
+    <!-- Displaying Songs -->
+    {% if songs %}
+        <div style="text-align: center; margin-top: 50px;">
+            <div class="song-list" style="display: flex; flex-wrap: wrap; justify-content: center;">
+                {% for song, album in songs %}
+                    <div class="song-item" style="margin: 2px; text-align: center; width: 220px;">
+                        <!-- Song Title -->
+                        <a href="{% url 'album_detail' album.id %}" style="text-decoration: none; color: black; font-family: 'Palatino', serif; font-size: 18px; font-weight: bold; display: block; margin-bottom: 5px;">{{ song.title }}</a>
+                        <p style="font-family: 'Palatino', serif;"><a href="{% url 'album_detail' album.id %}" style="color: black;"></a></p>
+                    </div>
+                    <!-- Creating space between every two songs -->
+                    {% if forloop.counter|divisibleby:2 %}
+                        <div style="flex-basis: 100%;"></div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Pages related to Contact Us -->
+    {% if contact_us_results and 'contact' in query.lower %}
+        <div style="text-align: center; margin-top: 50px;">
+            <h3 style="font-family: Magneto, sans-serif; margin-bottom: 20px;">Pages</h3>
+            <div style="margin-top: 20px;">
+                <!-- Link to Contact Us page -->
+                <p><a href="{% url 'contact_us' %}" style="font-family: 'Palatino', serif; font-weight: bold; font-size: 20px; color: black">Contact Us</a></p>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Pages related to Library Policies -->
+    {% if library_policies_results and 'policies' in query.lower %}
+        <div style="text-align: center; margin-top: 50px;">
+            <h3 style="font-family: Magneto, sans-serif; margin-bottom: 20px;">Pages</h3>
+            <div style="margin-top: 20px;">
+                <!-- Link to Library Policies page -->
+                <p><a href="{% url 'library_policies' %}" style="font-family: 'Palatino', serif; font-weight: bold; font-size: 20px; color: black">Library Policies</a></p>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Pages related to About Us -->
+    {% if about_us_results and 'about' in query.lower %}
+        <div style="text-align: center; margin-top: 50px;">
+            <h3 style="font-family: Magneto, sans-serif; margin-bottom: 20px;">Pages</h3>
+            <div style="margin-top: 20px;">
+                <!-- Link to About Us page -->
+                <p><a href="{% url 'about_us' %}" style="font-family: 'Palatino', serif; font-weight: bold; font-size: 20px; color: black">About us</a></p>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Pages related to Privacy Policies -->
+    {% if privacy_policies_results and 'policies' in query.lower %}
+        <div style="text-align: center; margin-top: 50px;">
+            <!-- Link to Privacy Policy page -->
+            <p><a href="{% url 'privacy_policy' %}" style="font-family: 'Palatino', serif; font-weight: bold; font-size: 20px; color: black">Privacy Policy</a></p>
+        </div>
+    {% endif %}
+
+    <div style="margin-bottom: 150px;"></div>
+{% endblock %}

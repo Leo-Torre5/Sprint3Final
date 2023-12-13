@@ -1,0 +1,53 @@
+{% extends "MelodyMatrix/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <!-- Purpose: Render a page for editing a genre in a music inventory management system -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+
+                <!-- Permission Check Section -->
+                {% if perms.MelodyMatrix.change_genre or perms.MelodyMatrix.edit_genre %}
+
+                    <!-- Edit Genre Card Section -->
+                    <div class="card">
+                        <div class="card-body">
+
+                            <!-- Page Heading Section -->
+                            <h2 style="font-family: 'Palatino', serif; font-weight: bold" class="text-center text-uppercase">Edit Genre</h2>
+
+                            <!-- Edit Genre Form Section -->
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+
+                                <!-- Spacing Section -->
+                                <div style="margin-bottom: 30px;"></div>
+
+                                <!-- Action Buttons Section -->
+                                <div class="text-center">
+                                    <button class="btn btn-dark" onclick="goBack()">Back</button>
+                                    <input type="submit" class="btn btn-dark" value="Save Changes">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                <!-- No Permission Alert Section -->
+                {% else %}
+                    <div class="alert alert-danger">
+                        You do not have permission to edit this genre.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Function to Go Back -->
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "MelodyMatrix/base.html" %}
+{% block content %}
+    <!-- Page Purpose: Display Albums with Sorting Options -->
+
+    <!-- Banner Section -->
+    <section style="position: relative;">
+        <img src="/media/about_banner/album_banner.jpg" alt="Banner Image" style="width: 100%; height: auto;">
+        <div style="position: absolute; top: 50%; left: 33%; transform: translate(-50%, -50%); color: whitesmoke;">
+            <p style="font-family: Magneto; font-weight: bold; text-align: left; font-size: 200px; font-weight: bold; margin-bottom: -70px;"> Explore </p>
+            <p style="font-family: 'Palatino', serif; font-weight: bold; text-align: left; font-size: 80px; font-weight: bold; margin-bottom: -35px;" class="text-uppercase"> All Albums</p>
+        </div>
+    </section>
+    <div style="margin-bottom: 10px;"></div>
+
+    <!-- Album Sorting Form Section -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <form method="get" action="{% url 'album_list' %}" class="d-flex">
+                    <div class="form-group me-2">
+                        <!-- Dropdown for Sorting -->
+                        <select class="form-control bg-dark text-white text-uppercase" id="sort" name="sort" onchange="this.form.submit()">
+                            <option value="" selected disabled>Sort by</option>
+                            <option value="title">Title (A-Z)</option>
+                            <option value="-title">Title (Z-A)</option>
+                            <option value="oldest">Oldest</option>
+                            <option value="-oldest">Newest</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 20px;"></div>
+
+    <!-- Display Album Cards Section -->
+    {% if album_list %}
+        <div class="row row-cols-1 row-cols-md-4">
+            {% for album in album_list %}
+                <div class="col mb-4">
+                    <div class="card">
+                        <!-- Wrap the image in an anchor tag with the album detail URL -->
+                        <a href="{{ album.get_absolute_url }}">
+                            <img src="{{ album.album_image.url }}" class="card-img-top" alt="{{ album.title }}">
+                        </a>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ album.title }}</h5>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <!-- Display message if no albums are available -->
+        <p>There are no albums in the library.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "MelodyMatrix/base.html" %}
+
+{% block content %}
+    <!-- Page Purpose: Delete Album -->
+
+    <div class="content-section">
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    {% if perms.MelodyMatrix.delete_album %}
+                        <!-- Card for Delete Album -->
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Heading for Delete Album -->
+                                <h1 class="text-center">Delete Album {{ album.title }}</h1>
+
+                                <!-- Form to Confirm Deletion -->
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <!-- Button Group for Delete and Cancel -->
+                                    <div class="text-center">
+                                        <input type="submit" class="btn btn-danger" value="Delete">
+                                        <a href="{% url 'album_detail' pk=album.pk %}" class="btn btn-dark">Cancel</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    {% else %}
+                        <!-- Alert for No Permission -->
+                        <div class="alert alert-danger">
+                            You do not have permission to delete this album.
+                        </div>
+                        <!-- Button to go back to Home -->
+                        <a href="{% url 'index' %}" class="btn btn-secondary">Back to Home</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

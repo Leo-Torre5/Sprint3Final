@@ -1,0 +1,36 @@
+{% extends "MelodyMatrix/base.html" %}
+{% block content %}
+    <!-- Purpose: Render a page for deleting a genre in a music inventory management system -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+
+                        <!-- Page Heading Section -->
+                        <h2 style="font-family: 'Palatino', serif; font-weight: bold" class="text-center text-uppercase">Delete Genre</h2>
+
+                        <!-- Spacing Section -->
+                        <div style="margin-bottom: 30px;"></div>
+
+                        <!-- Confirmation Message Section -->
+                        <div class="text-center">
+                            <p>Are you sure you want to delete the genre "{{ genre.name }}"?</p>
+                        </div>
+
+                        <!-- Delete Form Section -->
+                        <form method="post" action="{% url 'delete_genre' pk=genre.pk %}">
+                            {% csrf_token %}
+
+                            <!-- Action Buttons Section -->
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-dark">Delete</button>
+                                <a class="btn btn-dark" href="{% url 'genre_inventory' %}">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

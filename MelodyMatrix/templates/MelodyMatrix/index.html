@@ -1,0 +1,409 @@
+{% extends 'MelodyMatrix/base.html' %}
+<!--
+    Purpose: This Django template represents the home page of the Melody Matrix website.
+    It includes sections for a banner carousel, information about the platform, features to explore music,
+    borrow vinyl, and connect with the platform, as well as spotlights on albums and artists.
+-->
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    <!-- Header with Carousel-->
+    <section class="header" style="width: 100%;">
+        <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="11000" style="width: 100%;">
+            <div class="carousel-inner" style="width: 100%;">
+                <!-- Carousel Item 1 -->
+                <div class="carousel-item active" style="width: 100%;">
+                    <img src="/media/about_banner/signup_banner.jpg" class="d-block w-100" alt="Banner 1" style="width: 100%; height: auto;">
+                    <div class="carousel-caption d-none d-md-block" style="position: absolute; top: 30%; transform: translateY(-50%); left: 0; right: 0; text-align: center; padding: 10px; margin: 10px;">
+                        <!-- Title for Carousel Item 1 -->
+                        <h1 style="font-family:'Sitka Text'; text-shadow: 2px 3px 0px #2e4c57; font-weight: bold; text-align: center; font-size: 60px;" class="text-uppercase text-center">Welcome to</h1>
+                        <h2 style="font-family: Magneto; text-shadow: 2px 3px 0px #2e4c57; font-weight: bold; text-align: center; font-size: 90px;" class=" text-center">Melody Matrix</h2>
+                            <!-- Description for Carousel Item 1 -->
+                            <p style="font-family: 'Palatino', serif; text-align: center; font-size: 20px; max-width: 70%; margin: 0 auto; background-color: rgba(0, 0, 0, 0.6); color: white; padding: 20px; border-radius: 15px;" class="text-center">
+                                Explore the rich tapestry of musical history with Melody Matrix, your ultimate vinyl record
+                                library. Unlock the door to a world of timeless melodies by becoming a member today and
+                                relish the nostalgia and authenticity of each record in our curated collection.
+                            </p>
+                        <div style="margin-bottom: 25px;"></div>
+                        <!-- Register Now button in Carousel Item 1 -->
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <p><a class="btn btn-outline-light text-uppercase text-center" type="button"
+                                  href="{% url 'register' %}" style="width: 35%; font-family:'Sitka Text'; font-size: 18px">Register Now</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Item 2 -->
+                <div class="carousel-item" style="width: 100%;">
+                    <img src="/media/about_banner/about_us.jpg" class="d-block w-100" alt="Banner 2" style="width: 100%; height: auto;">
+                    <div class="carousel-caption d-none d-md-block" style="position: absolute; top: 40%; transform: translateY(-50%); left: 0; right: 0; text-align: center; padding: 10px; margin: 10px;">
+                        <!-- Title for Carousel Item 2 -->
+                        <h1 style="font-family:'Sitka Text'; text-shadow: 2px 3px 0px #2e4c57; font-weight: bold; text-align: center; font-size: 60px;" class="text-uppercase text-center">Our Story & Mission</h1>
+                            <!-- Description for Carousel Item 2 -->
+                            <p style="font-family: 'Palatino', serif; text-align: center; font-size: 20px; max-width: 70%; margin: 0 auto; background-color: rgba(0, 0, 0, 0.6); color: white; padding: 20px; border-radius: 15px;" class="text-center">
+                                Step into the enchanting world of Melody Matrix, a timeless vinyl library with a story to
+                                tell. Founded in the 1990s by Mr. Jason Cooper, our collection of over 2000 records
+                                embodies the spirit of community and sharing. Guided by Emma Cooper, we're more than a
+                                digital platform; we're a bridge between past and present.
+                                Delve into the heart of Melody Matrix by reading about our journey—click below to uncover
+                                the story behind the library.
+                            </p>
+                        <div style="margin-bottom: 25px;"></div>
+                        <!-- About Us button in Carousel Item 2 -->
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <p><a class="btn btn-outline-light text-uppercase text-center" type="button"
+                                  href="{% url 'about_us' %}" style="width: 35%; font-family:'Sitka Text'; font-size: 18px">About Us</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Item 3 -->
+                <div class="carousel-item" style="width: 100%;">
+                    <img src="/media/about_banner/catalog_banner.jpg" class="d-block w-100" alt="Banner 3" style="width: 100%; height: auto;">
+                    <div class="carousel-caption d-none d-md-block" style="position: absolute; top: 35%; transform: translateY(-50%); left: 0; right: 0; text-align: center; padding: 10px; margin: 10px;">
+                        <!-- Title for Carousel Item 3 -->
+                        <h1 style="font-family:'Sitka Text'; text-shadow: 2px 3px 0px #2e4c57; font-weight: bold; text-align: center; font-size: 60px;" class="text-uppercase text-center">Explore Our Catalog</h1>
+                        <!-- Description for Carousel Item 3 -->
+                        <div style="margin-bottom: 35px;"></div>
+                            <p style="font-family: 'Palatino', serif; text-align: center; font-size: 20px; max-width: 70%; margin: 0 auto; background-color: rgba(0, 0, 0, 0.6); color: white; padding: 20px; border-radius: 15px;"
+                               class="text-center">
+                                Embark on a musical journey like no other as you explore the vast melodies within our
+                                extensive vinyl catalog. From timeless classics to hidden gems, each record weaves a unique
+                                story waiting to be discovered.
+                                Click the link below to immerse yourself in the rich tapestry of musical history. Take a
+                                stroll through our digital music library and let the melodies unfold.
+                            </p>
+                        <div style="margin-bottom: 25px;"></div>
+                        <!-- Browse Catalog button in Carousel Item 3 -->
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <p><a class="btn btn-outline-light text-uppercase text-center" type="button"
+                                  href="{% url 'album_list' %}" style="width: 35%; font-family:'Sitka Text'; font-size: 18px">Browse Catalog</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Item 4 -->
+                <div class="carousel-item" style="width: 100%;">
+                    <img src="/media/about_banner/connect.jpg" class="d-block w-100" alt="Banner 4" style="width: 100%; height: auto;">
+                    <div class="carousel-caption d-none d-md-block" style="position: absolute; top: 35%; transform: translateY(-50%); left: 0; right: 0; text-align: center; padding: 10px; margin: 10px;">
+                        <!-- Title for Carousel Item 4 -->
+                        <h1 style="font-family:'Sitka Text'; text-shadow: 2px 3px 0px #2e4c57; font-weight: bold; text-align: center; font-size: 60px;" class="text-uppercase text-center">We're Here To Listen</h1>
+                        <!-- Description for Carousel Item 4 -->
+                        <div style="margin-bottom: 40px;"></div>
+                            <p style="font-family: 'Palatino', serif; text-align: center; font-size: 20px; max-width: 70%; margin: 0 auto; background-color: rgba(0, 0, 0, 0.6); color: white; padding: 20px; border-radius: 15px;" class="text-center">
+                                Whether you're seeking a rare gem or have a special request in mind, our team is dedicated
+                                to curating a personalized musical journey for you.
+                                Click the link below to connect with us – share your thoughts, ask questions, or let us know
+                                about the records you long to discover. At Melody Matrix, we're not just a library; we're
+                                your gateway to a world of musical possibilities.
+                            </p>
+                        <div style="margin-bottom: 25px;"></div>
+                        <!-- Contact Us button in Carousel Item 4 -->
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <p><a class="btn btn-outline-light text-uppercase text-center" type="button"
+                                  href="{% url 'contact_us' %}" style="width: 35%; font-family:'Sitka Text'; font-size: 18px">Contact Us</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carousel Controls - previous & next buttons -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <div style="margin-bottom: 30px;"></div>
+
+    <hr class="featurette-divider" style="height: 4px; background-color: black">
+    <div class="container marketing text-center">
+        <!-- Three columns below the carousel -->
+        <div class="row">
+            <!-- Explore Music Column -->
+            <div class="col-lg-4">
+                <img src="/media/about_banner/explore_icon.jpg" class="bd-placeholder-img rounded-circle" width="140"
+                     height="140" alt="Explore Music Image">
+                <h2 class="text-center text-uppercase" style="font-family:'Sitka Text'; font-weight: bold; text-align: center; font-size: 27px;">Explore</h2>
+                <p style="font-family:'Sitka Text'; text-align: center; font-size: 17px;">
+                    Dive into a musical journey and browse our vast music vinyl catalog of over 2000 vinyl records,
+                    each with its own unique story and melody.
+                </p>
+            </div>
+            <!-- Borrow Column -->
+            <div class="col-lg-4">
+                <img src="/media/about_banner/barrow.jpg" class="bd-placeholder-img rounded-circle" width="140"
+                     height="140" alt="Loan Vinyl Image">
+                <h2 class="text-center text-uppercase" style="font-family:'Sitka Text'; font-weight: bold; text-align: center; font-size: 27px;">Borrow</h2>
+                <p style="font-family:'Sitka Text'; text-align: center; font-size: 17px;">
+                    Discover the joy of borrowing and immerse yourself in the nostalgia and authenticity of each record,
+                    and bring the music you love into your home.
+                </p>
+            </div>
+            <!-- Connect with Us Column -->
+            <div class="col-lg-4">
+                <img src="/media/about_banner/support.jpg" class="bd-placeholder-img rounded-circle" width="140"
+                     height="140" alt="Connect with Us Image">
+                <h2 class="text-center text-uppercase" style="font-family:'Sitka Text'; font-weight: bold; text-align: center; font-size: 27px;">Connect</h2>
+                <p style="font-family:'Sitka Text'; text-align: center; font-size: 17px;">
+                    Connect with our friendly staff and share your thoughts, ask questions, or let us know about the
+                    records you long to discover.
+                </p>
+            </div>
+        </div>
+        <hr class="featurette-divider" style="height: 5px; background-color: black">
+
+        <div style="margin-bottom: 30px;"></div>
+
+        <!-- Album Spotlight -->
+        <!-- Album Spotlight Carousel -->
+        <div id="albumCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- Album 1 -->
+                <div class="carousel-item active">
+                    <img src="/media/about_banner/discover_3.jpg" class="d-block w-100" alt="Album Spotlight 1">
+                    <div class="carousel-caption d-none d-md-block">
+                        <p style="font-family: Magneto; text-shadow: 2px 3px 0px #2e4c57; text-align: left; font-size: 180px; margin-bottom: -70px;">Discover </p>
+                        <p style="font-family: 'Palatino', serif; text-shadow: 2px 3px 0px #2e4c57; font-weight: bold; text-align: left; font-size: 60px; margin-bottom: -35px;" class="text-uppercase text-center"> New Albums</p>
+                    </div>
+                </div>
+                <!-- Album 2 (Duplicate for now) -->
+                <div class="carousel-item">
+                    <img src="/media/about_banner/album_spotlight2.jpg" class="d-block w-100" alt="Album Spotlight 2">
+                    <div class="carousel-caption d-none d-md-block">
+                        <p style="font-family: Magneto; text-shadow: 2px 3px 0px #2e4c57; text-align: center; font-size: 180px; margin-bottom: -70px;">Album </p>
+                        <p style="font-family: 'Palatino', serif; text-shadow: 2px 3px 0px #2e4c57; font-weight: bold; text-align: left; font-size: 60px; margin-bottom: -35px;" class="text-uppercase text-center"> Spotlight</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Carousel Controls - previous & next buttons -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#albumCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#albumCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <div style="margin-bottom: 25px;"></div>
+
+        <!-- Album 1 -->
+        <div class="row">
+            <div class="col-lg-6 mb-3 mb-lg-0">
+                <a href="{% url 'album_detail' 18 %}">
+                    <!-- Replace '1' with the actual ID of first album -->
+                    <div class="hover hover-1 text-white rounded">
+                        <!-- Album Image -->
+                        <img src="/media/about_banner/american_heartbreak.jpg" alt="First Album">
+                        <div class="hover-overlay"></div>
+                        <div class="hover-1-content px-5 py-4">
+                            <!-- Album Title -->
+                            <h3 class="hover-1-title text-uppercase font-weight-bold mb-0">
+                                <span>American Heartbreak</span></h3>
+                            <!-- Album Description -->
+                            <p class="hover-1-description font-weight-light mb-0">
+                                Zack Bryan paints a poignant narrative of love's highs and lows.
+                                With soul-stirring melodies and evocative lyrics, the album becomes a
+                                heartfelt soundtrack to the human experience.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Album 2 -->
+            <div class="col-lg-6 mb-3 mb-lg-0">
+                <a href="{% url 'album_detail' 17 %}">
+                    <!-- Replace '2' with the actual ID of second album -->
+                    <div class="hover hover-1 text-white rounded">
+                        <!-- Album Image -->
+                        <img src="/media/about_banner/shadowboxer.jpg" alt="Second Album">
+                        <div class="hover-overlay"></div>
+                        <div class="hover-1-content px-5 py-4">
+                            <!-- Album Title -->
+                            <h3 class="hover-1-title text-uppercase font-weight-bold mb-0"><span
+                                    class="font-weight-light">Shadowboxer</span></h3>
+                            <!-- Album Description -->
+                            <p class="hover-1-description font-weight-light mb-0">
+                                A sonic journey through atmospheric landscapes, blending ethereal sounds with pulsating
+                                beats. Waving a mesmerizing tapestry, inviting listeners into a realm where emotion meets
+                                electrifying soundscapes.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 25px;"></div>
+
+        <!-- Artist Spotlight -->
+        <!-- Artist Spotlight Carousel -->
+        <div id="artistCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- Artist 1 -->
+                <div class="carousel-item active">
+                    <img src="/media/about_banner/discover_4.jpg" class="d-block w-100" alt="Album Spotlight 1">
+                    <div class="carousel-caption d-none d-md-block">
+                        <p style="font-family: Magneto; text-shadow: 2px 3px 0px #2e4c57; text-align: left; font-size: 180px; margin-bottom: -70px;">Discover </p>
+                        <p style="font-family: 'Palatino', serif; text-shadow: 2px 3px 0px #2e4c57; font-weight: bold; text-align: left; font-size: 60px; margin-bottom: -35px;" class="text-uppercase text-center"> New Artists</p>
+                    </div>
+                </div>
+                <!-- Artist 2 (Duplicate for now) -->
+                <div class="carousel-item">
+                    <img src="/media/about_banner/artist_spotlight3.jpg" class="d-block w-100" alt="Album Spotlight 2">
+                    <div class="carousel-caption d-none d-md-block">
+                        <p style="font-family: Magneto; text-shadow: 2px 3px 0px #2e4c57; text-align: center; font-size: 180px;  margin-bottom: -70px;">Artist </p>
+                        <p style="font-family: 'Palatino', serif; text-shadow: 2px 3px 0px #2e4c57; font-weight: bold; text-align: left; font-size: 60px; margin-bottom: -35px;" class="text-uppercase text-center"> Spotlight</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Carousel Controls - previous & next buttons -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#artistCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#artistCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <div style="margin-bottom: 25px;"></div>
+
+        <!-- Artist 1 -->
+        <div class="row">
+            <div class="col-lg-6 mb-3 mb-lg-0">
+                <a href="{% url 'artist_detail' 20 %}" style="text-decoration: none; color: inherit;">
+                    <div class="hover hover-1 text-white rounded">
+                        <!-- Artist Image -->
+                        <img src="/media/about_banner/daddy_yankee.jpg" alt="Daddy Yankee">
+                        <div class="hover-overlay"></div>
+                        <div class="hover-1-content px-5 py-4">
+                            <!-- Artist Name -->
+                            <h3 class="hover-1-title text-uppercase font-weight-bold mb-0">
+                                <span class="font-weight-light">Daddy Yankee</span>
+                            </h3>
+                            <!-- Artist Description -->
+                            <p class="hover-1-description font-weight-light mb-0">
+                                Daddy Yankee, is a Puerto Rican rapper, singer and songwriter. Dubbed the
+                                "King of Reggaeton", he is often cited as an influence by other Hispanic urban performers.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Artist 2 -->
+            <div class="col-lg-6 mb-3 mb-lg-0">
+                <a href="{% url 'artist_detail' 21 %}" style="text-decoration: none; color: inherit;">
+                    <div class="hover hover-1 text-white rounded">
+                        <!-- Artist Image -->
+                        <img src="/media/about_banner/becky-g.png" alt="Becky G">
+                        <div class="hover-overlay"></div>
+                        <div class="hover-1-content px-5 py-4">
+                            <!-- Artist Name -->
+                            <h3 class="hover-1-title text-uppercase font-weight-bold mb-0">
+                                <span class="font-weight-light">Becky G</span>
+                            </h3>
+                            <!-- Artist Description -->
+                            <p class="hover-1-description font-weight-light mb-0">
+                                Rebbeca Marie Gomez, known as Becky G, is an American singer. She is known for her
+                                versatility in music, recorded songs and albums spawning several genres.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 150px;"></div>
+
+        <!-- Web Styling for Album and Artists Spotlight -->
+        <style>
+            .hover {
+                overflow: hidden;
+                position: relative;
+                padding-bottom: 60%;
+            }
+
+            .hover-overlay {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 90;
+                transition: all 0.4s;
+            }
+
+            .hover img {
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                transition: all 0.3s;
+            }
+
+            .hover-content {
+                position: relative;
+                z-index: 99;
+            }
+
+            /* Albums & Artists */
+            .hover-1 img {
+                width: 105%;
+                position: absolute;
+                top: 0;
+                left: -5%;
+                transition: all 0.3s;
+            }
+
+            .hover-1-content {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                z-index: 99;
+                transition: all 0.4s;
+            }
+
+            .hover-1 .hover-overlay {
+                background: rgba(0, 0, 0, 0.5);
+            }
+
+            .hover-1-description {
+                transform: translateY(0.5rem);
+                transition: all 0.4s;
+                opacity: 0;
+            }
+
+            .hover-1:hover .hover-1-content {
+                bottom: 2rem;
+            }
+
+            .hover-1:hover .hover-1-description {
+                opacity: 1;
+                transform: none;
+            }
+
+            .hover-1:hover img {
+                left: 0;
+            }
+
+            .hover-1:hover .hover-overlay {
+                opacity: 0;
+            }
+        </style>
+    </div>
+{% endblock %}

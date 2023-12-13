@@ -1,0 +1,63 @@
+{% extends "MelodyMatrix/base.html" %}
+
+{% block content %}
+    <!-- Purpose: Display a list of genres in the inventory with options to edit, delete, and add new genres. -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <!-- Heading for Genre Inventory -->
+                <h1 class="text-center text-uppercase" style="font-family:'Sitka Text'; font-size: 60px; font-weight: bold ">Genre Inventory</h1>
+
+                <!-- Vertical Spacing -->
+                <div style="margin-bottom: 30px;"></div>
+
+                <!-- Additional Vertical Spacing -->
+                <div style="margin-bottom: 30px;"></div>
+
+                <!-- Check if Genres Exist -->
+                {% if genres %}
+                    <!-- Table for Displaying Genres -->
+                    <table class="table table-bordered table-light table-striped table-hover">
+                        <!-- Table Header -->
+                        <thead>
+                            <tr class="table-dark">
+                                <th>Name</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <!-- Table Body -->
+                        <tbody>
+                            <!-- Loop through Genres -->
+                            {% for genre in genres %}
+                                <tr>
+                                    <!-- Display Genre Name -->
+                                    <td>{{ genre.name }}</td>
+                                    <!-- Actions Column -->
+                                    <td class="text-center">
+                                        <!-- Edit Genre Button -->
+                                        <a href="{% url 'edit_genre' pk=genre.pk %}" class="btn btn-warning">Edit</a>
+                                        <!-- Delete Genre Button with Confirmation -->
+                                        <a href="{% url 'delete_genre' pk=genre.pk %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete {{ genre.name }}?')">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            <!-- Add New Genre button in the last row -->
+                            <tr>
+                                <td colspan="2" class="text-center">
+                                    <a href="{% url 'add_genre' %}" class="btn btn-success">Add New Genre</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <!-- No Genres Exist -->
+                {% else %}
+                    <p>There are no genres in the inventory.</p>
+                {% endif %}
+
+                <!-- Additional Vertical Spacing -->
+                <div style="margin-bottom: 150px;"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

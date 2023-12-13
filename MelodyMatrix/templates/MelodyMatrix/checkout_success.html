@@ -1,0 +1,37 @@
+{% extends 'MelodyMatrix/base.html' %}
+
+{% block content %}
+    <!-- Main Content Section -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <!-- Banner Image Section -->
+                    <section>
+                        <img src="/media/h1_banner/MM_Logo.jpg" alt="Banner Image" class="card-img-top" style="width: 100%; height: auto;">
+                    </section>
+
+                    <!-- Card Body Section -->
+                    <div class="card-body">
+                        <div style="margin-bottom: 20px;"></div>
+
+                        <!-- Alert Section -->
+                        <div class="alert" role="alert" style="font-family: 'Palatino', serif; font-size: 16px;">
+                            <!-- Alert Heading -->
+                            <p class="text-uppercase text-center alert alert-info" style="font-family: 'Palatino', serif; font-weight: bold;">
+                                Your album reservation is confirmed! <br>
+
+                                <!-- Link to Borrowed Vinyl Page -->
+                                Head over to your <a href="{% url 'my_vinyl' %}" style="color: black; font-weight: bold; text-decoration: none;">Borrowed Vinyl</a>
+                                page to see all the melodies you've borrowed and their return dates.
+
+                                <!-- Reminder for Vinyl Care -->
+                                Remember to treat our vinyls with lots of love and care—they'll appreciate it!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "MelodyMatrix/base.html" %}
+
+{% block content %}
+    <!-- Page Purpose: Delete Artist with Permission Check -->
+
+    {% if perms.MelodyMatrix.delete_artist %}
+        <h1>Delete Artist {{ artist.name }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-danger" value="Delete">
+            <a href="{% url 'index' %}">Cancel</a>
+        </form>
+    {% else %}
+        <p>You do not have permission to access this feature</p>
+        <a href="{% url 'index' %}">Home</a>
+    {% endif %}
+{% endblock %}

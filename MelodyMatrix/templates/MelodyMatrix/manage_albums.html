@@ -1,0 +1,62 @@
+{% extends "MelodyMatrix/base.html" %}
+{% block content %}
+  {% if messages %}
+        {% for message in messages %}
+            <!-- Display success messages as alert -->
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <!-- Close button for alert dismissal -->
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Purpose: Display Album Inventory with CRUD operations -->
+    <h1 class="text-center text-uppercase" style="font-family:'Sitka Text'; font-size: 60px; font-weight: bold ">Album Inventory</h1>
+    <div style="margin-bottom: 30px;"></div>
+
+    <!-- Container for Album Inventory display -->
+    <div class="container mt-5">
+        <!-- Row and column layout for better alignment -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Table to showcase Album details -->
+                <table class="table table-bordered table-light table-striped table-hover" style="max-width: 900px;">
+                    <thead>
+                        <!-- Table header with column names -->
+                        <tr class="table-secondary table-dark">
+                            <th>Title</th>
+                            <th>Artist</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for album in album_list %}
+                            <!-- Table row for each Album -->
+                            <tr>
+                                <!-- Link to Album details page -->
+                                <td><a href="{{ album.get_absolute_url }}" style="color: black; text-decoration: underline;">{{ album.title }}</a></td>
+                                <!-- Link to Artist details page -->
+                                <td><a href="{{ album.artist.get_absolute_url }}" style="color: black; text-decoration: underline;">{{ album.artist.artist_name }}</a></td>
+                                <td>
+                                    <!-- Button to edit the album -->
+                                    <a href="{% url 'album_update' pk=album.pk %}" class="btn btn-warning">Edit</a>
+                                    <!-- Button to delete the album with confirmation prompt -->
+                                    <a href="{% url 'album_delete' pk=album.pk %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <!-- Add New Album button in the last row -->
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                <a href="{% url 'album_create' %}" class="btn btn-success">Add New Album</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Bottom margin for better spacing -->
+    <div style="margin-bottom: 100px;"></div>
+{% endblock %}

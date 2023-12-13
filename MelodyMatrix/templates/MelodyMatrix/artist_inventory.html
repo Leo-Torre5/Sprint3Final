@@ -1,0 +1,60 @@
+{% extends "MelodyMatrix/base.html" %}
+{% block content %}
+    <!-- Display success messages if any -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <!-- Button to close the alert -->
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Heading for Artist Inventory -->
+    <h1 class="text-center text-uppercase" style="font-family:'Sitka Text'; font-size: 60px; font-weight: bold ">Artist Inventory</h1>
+    <div style="margin-bottom: 30px;"></div>
+
+    <!-- Container for Artist Inventory Table -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Artist Inventory Table -->
+                <table class="table table-bordered table-light table-striped table-hover mx-auto" style="max-width: 900px;">
+                    <!-- Table Header -->
+                    <thead>
+                        <tr class="table-secondary table-dark">
+                            <th style="width: 60%;">Artist Name</th>
+                            <th style="width: 40%;">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Table Body with Artist Data -->
+                    <tbody>
+                        {% for artist in artists %}
+                            <tr>
+                                <!-- Display Artist Name with a link to their details -->
+                                <td style="width: 60%;"><a href="{{ artist.get_absolute_url }}" style="color: black; text-decoration: underline;">{{ artist.artist_name }}</a></td>
+
+                                <!-- Actions Column with Edit and Delete buttons -->
+                                <td style="width: 40%;">
+                                    <!-- Button to edit the artist -->
+                                    <a href="{% url 'artist_update' pk=artist.pk %}" class="btn btn-warning">Edit</a>
+                                    <!-- Button to delete the artist with confirmation prompt -->
+                                    <a href="{% url 'artist_delete' pk=artist.pk %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        <!-- Add New Artist button in the last row -->
+                        <tr>
+                            <td colspan="2" class="text-center">
+                                <a href="{% url 'artist_create' %}" class="btn btn-success">Add New Artist</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

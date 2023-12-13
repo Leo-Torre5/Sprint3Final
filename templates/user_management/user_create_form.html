@@ -1,0 +1,29 @@
+{% extends "MelodyMatrix/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="content-section">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 style="font-family: 'Palatino', serif; font-weight: bold" class="text-center text-uppercase">Create a New User</h3>
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                                {{ form|crispy }}
+                            </fieldset>
+                            <p></p>
+                            <div class="form-group text-center">
+                                <a href="{% url 'user_list' %}" class="btn btn-dark">Back</a>
+                                <button class="btn btn-dark" type="submit">Create User</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

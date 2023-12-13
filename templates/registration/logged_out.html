@@ -1,0 +1,29 @@
+<!-- templates/registration/logged_out.html file -->
+
+{% extends "MelodyMatrix/base.html" %}
+
+<!-- Logout - Web Styling -->
+{% block content %}
+    <div class="container flex">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <section>
+                            <img src="/media/h1_banner/MM_Logo.jpg" alt="Banner Image" style="width: 100%; height: auto;">
+                        </section>
+                        <div style="margin-bottom: 50px;"></div>
+                            <p class="card-text text-center" style="font-family: 'Palatino', serif; font-size: 18px;">Thanks for visiting Melody Matrix, we hope to see you soon!</p>
+                        <div style="margin-bottom: 40px;"></div>
+                        <div>
+                            <div class="text-center">
+                                <p style="font-size: 15px; color: grey; ">Did not mean to logout?<a style="color: black; font-weight: bold;text-decoration: none;"href="{% url 'login' %}"> Login</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-bottom: 200px;"></div>
+{% endblock %}

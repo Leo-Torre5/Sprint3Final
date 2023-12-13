@@ -1,0 +1,29 @@
+<!-- templates/MelodyMatrix/loan_album_librarian.html file contains the Loan Album form -->
+
+{% extends "MelodyMatrix/base.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Title -->
+                        <h2 style="font-family: 'Palatino', serif; font-weight: bold" class="text-center text-uppercase">Loan Album</h2>
+                        <div style="margin-bottom: 30px;"></div>
+                        <!-- Loan Album Form -->
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <!-- Loan Album & Back Buttons-->
+                            <div class="text-center">
+                                <input class="btn btn-dark" type="submit" value="Loan Album">
+                                <a href="{% url 'all_available' %}" class="btn btn-dark">Back To Manage Inventory</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

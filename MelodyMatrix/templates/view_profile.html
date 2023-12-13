@@ -1,0 +1,84 @@
+{% extends "MelodyMatrix/base.html" %}
+{% load crispy_forms_tags static %}
+
+{% if success_message %}
+    <!-- Display success message if available -->
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ success_message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endif %}
+
+{% block content %}
+    <!-- Container for user profile information -->
+    <div class="container py-5">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 col-xl-7">
+                <div class="card">
+                    <!-- Top section of the card with user image and basic details -->
+                    <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+                        <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+                            <!-- User profile image -->
+                            {% if user_profile.image %}
+                                <img src="{{ user_profile.image.url }}" alt="{{ user.first_name }} {{ user.last_name }} Profile" class="img-fluid img-thumbnail mt-4 mb-2" style="width: 150px; z-index: 1">
+                            {% else %}
+                                <!-- Default profile image if no custom image is available -->
+                                <img src="{% static 'default_image/Default.png' %}" alt="Default Profile" class="img-fluid img-thumbnail mt-4 mb-2" style="width: 150px; z-index: 1">
+                            {% endif %}
+                            <!-- Edit profile button -->
+                            <a href="{% url 'profile' %}" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;">
+                                Edit profile
+                            </a>
+                        </div>
+                        <!-- User details section -->
+                        <div class="ms-3" style="margin-top: 130px;">
+                            <h5>{{ user.first_name }} {{ user.last_name }}</h5>
+                            <p>{{ user_profile.city }}</p>
+                        </div>
+                    </div>
+                    <!-- Margin for visual separation -->
+                    <div style="margin-bottom: 100px;"></div>
+                    <!-- Main content section of the card -->
+                    <div class="p-4 text-black" style="background-color: #f8f9fa;">
+                        <!-- Membership information box -->
+                        <div class="membership-box p-3 border border-dark rounded">
+                            <h3 style="font-family: 'Palatino', serif; font-weight: bold" class="text-center text-uppercase" class="card-title">Membership Information</h3>
+                            <!-- Membership details list -->
+                            <dl class="row mt-3">
+                                <dt class="col-sm-3">First Name:</dt>
+                                <dd class="col-sm-9">{{ user.first_name }}</dd>
+
+                                <dt class="col-sm-3">Last Name:</dt>
+                                <dd class="col-sm-9">{{ user.last_name }}</dd>
+
+                                <dt class="col-sm-3">Address:</dt>
+                                <dd class="col-sm-9">{{ user_profile.address }}</dd>
+
+                                <dt class="col-sm-3">City:</dt>
+                                <dd class="col-sm-9">{{ user_profile.city }}</dd>
+
+                                <dt class="col-sm-3">State:</dt>
+                                <dd class="col-sm-9">{{ user_profile.state }}</dd>
+
+                                <dt class="col-sm-3">Zip Code:</dt>
+                                <dd class="col-sm-9">{{ user_profile.zip_code }}</dd>
+
+                                <!-- Library Card Number -->
+                                <dt class="col-sm-3">Library Card:</dt>
+                                <dd class="col-sm-9">{{ user_profile.library_card_number }}</dd>
+                            </dl>
+                            <!-- Margin for visual separation -->
+                            <p></p>
+                            <!-- Button to navigate to My Borrowed Vinyl page -->
+                            <div class="text-center mt-3 d-grid gap-2 ">
+                                <a href="{% url 'my_vinyl' %}" class="btn btn-dark">My Borrowed Vinyl</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Margin for visual separation -->
+    <div style="margin-bottom: 200px;"></div>
+{% endblock content %}
